@@ -1,10 +1,9 @@
-import javafx.util.Pair;
-
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,7 +28,7 @@ public class Day3 {
 		return treeCount;
 	}
 
-	public static long getNumberOfTreesPartTwo(char[][] grid, Pair<Integer, Integer> slope) {
+	public static long getNumberOfTreesPartTwo(char[][] grid, SimpleEntry<Integer, Integer> slope) {
 		int currentRow = 0;
 		int currentCol = 0;
 
@@ -72,12 +71,12 @@ public class Day3 {
 
 		System.out.println(getNumberOfTreesPartOne(grid));
 
-		List<Pair> slopes = new ArrayList<>();
-		slopes.add(new Pair(1, 1));
-		slopes.add(new Pair(3, 1));
-		slopes.add(new Pair(5, 1));
-		slopes.add(new Pair(7, 1));
-		slopes.add(new Pair(1, 2));
+		List<SimpleEntry> slopes = new ArrayList<>();
+		slopes.add(new SimpleEntry(1, 1));
+		slopes.add(new SimpleEntry(3, 1));
+		slopes.add(new SimpleEntry(5, 1));
+		slopes.add(new SimpleEntry(7, 1));
+		slopes.add(new SimpleEntry(1, 2));
 
 		long result = slopes.stream().mapToLong(slope -> getNumberOfTreesPartTwo(grid, slope)).reduce(1l, (a, b) -> a * b);
 		System.out.println(result);
