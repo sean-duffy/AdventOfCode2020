@@ -11,44 +11,6 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class Day16 {
-	private static List<SimpleEntry<Integer, Integer>> combineRules(List<SimpleEntry<Integer, Integer>> rules) {
-		List<SimpleEntry<Integer, Integer>> combinedRules = new ArrayList<>();
-
-		Queue<SimpleEntry<Integer, Integer>> toProcess = new LinkedList<>(rules);
-		List<SimpleEntry<Integer, Integer>> redundant = new ArrayList<>();
-		while (!toProcess.isEmpty()) {
-			var rule = toProcess.remove();
-			int min = rule.getKey();
-			int max = rule.getValue();
-
-			SimpleEntry<Integer, Integer> match = null;
-			for (var otherRule : toProcess) {
-				int otherMin = otherRule.getKey();
-				int otherMax = otherRule.getValue();
-
-				if (min > otherMin && max < otherMax) {
-					redundant.add(rule);
-					break;
-				}
-
-				if (max > otherMin && max < otherMax) {
-					match = otherRule;
-					break;
-				}
-			}
-
-			if (match != null) {
-				toProcess.remove(match);
-				combinedRules.add(new SimpleEntry<>(min, match.getValue()));
-			}
-		}
-
-		toProcess.removeAll(redundant);
-		combinedRules.addAll(toProcess);
-
-		return combinedRules;
-	}
-
 	private static boolean isValueValid(int value, List<SimpleEntry<Integer, Integer>> rules) {
 		for (var rule : rules) {
 			if (isValueValid(value, rule)) {
